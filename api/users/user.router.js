@@ -4,7 +4,8 @@ const {
     getUsersByUserId,
     getUsers,
     updateUser,
-    deleteUser
+    deleteUser,
+    login
 } = require("./user.controller");
 
 const router = require("express").Router();
@@ -14,5 +15,5 @@ router.get("/", getUsers);
 router.get("/:id", getUsersByUserId);
 router.patch("/", updateUser);
 router.delete("/", deleteUser);
-router.post("/login",);
+router.post("/login",login);
 module.exports = router;

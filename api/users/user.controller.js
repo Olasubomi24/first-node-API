@@ -89,7 +89,7 @@ module.exports = {
             }
             if (!results) {
                 return res.json({
-                    success: 0,
+                    success: 1,
                     message: "Failed to update user"
                 });
             }
@@ -114,5 +114,37 @@ module.exports = {
             }
         });
     },
-    login : (req, res) => {},
+    login : (req, res) => {
+        const body = req.body; 
+        getUsersByUserEmail(body.email, (err,results) => {
+            if (err) {
+                return console.log(err);
+            }
+            if (!results) {
+                return res.json({
+                    success: 1,
+                    message: "Invalid email amd password 1"
+                });
+            }
+          const result = compareSync(body.password,results.password);
+          if (result) {
+            result.password = undefined;
+            const jsonwebtoken = sign({result : results},"qwe123",{
+                expiresIn : "1h"
+            });
+            return res.json({
+                success: 0,
+                message: "Login Successfully",
+                token : jsonwebtoken,
+                data : results
+            });
+          }else {
+            return res.json({
+                success: 1,
+                message: "Invalid Email or Password",
+              
+            });
+          }
+        });
+    },
 };
