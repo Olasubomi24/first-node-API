@@ -1,6 +1,7 @@
 // user.controller.js
-const { genSaltSync, hashSync } = require("bcrypt");
-const { create, getUsers, getUsersByUserId, updateUser, deleteUser } = require("./user.service");
+const { genSaltSync, hashSync ,compareSync } = require("bcrypt");
+const {sign} = require("jsonwebtoken");
+const { create, getUsers, getUsersByUserId, updateUser, deleteUser ,getUsersByUserEmail} = require("./user.service");
 
 module.exports = {
     createUser: (req, res) => {
@@ -112,5 +113,6 @@ module.exports = {
                 });
             }
         });
-    }
+    },
+    login : (req, res) => {},
 };

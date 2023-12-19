@@ -76,5 +76,17 @@ module.exports = {
                 return callBack(null, results[0]);
             }
         );
+    },
+    getUsersByUserEmail : (email , callBack) => {
+        pool.query(
+            `select * from user_accounts where email = ?`,
+            [email],
+            (error, results, fields) => {
+                if (error) {
+                    return callBack(error);
+                }
+                return callBack(null, results[0]);
+            }
+        )
     }
 };
